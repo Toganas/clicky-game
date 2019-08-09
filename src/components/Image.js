@@ -1,5 +1,5 @@
 import React from "react";
-import "/image.css";
+import "./image.css";
 
 export default function Image(props) {
     return (
@@ -9,7 +9,7 @@ export default function Image(props) {
                 alt = {props.alt}
                 id = {props.id}
                 key = {props.id}
-                onclick = {()=>props.clickme(props)}
+                onClick = {()=>props.clickme(props)}
                 />
         </span>
     )
