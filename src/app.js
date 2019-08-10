@@ -24,30 +24,44 @@ var my_images = [
 class App extends React.Component {
     state = {
         score: 0,
+        topScore: 0,
         images: my_images,
         images_clicked: [],
-        message: "Click an image to earn points, but don't click on the same image twice or you'll go back to 0!"
+        message: "Click an image to earn points, but don't click on the same image twice or you'll go back to 0!",
+        maxScore: 16
     }
 
     clickme = data => {
         let id = data.id;
 
-        if (this.state.images_clicked.indexOf(id) === -1) {
 
+        if (this.state.images_clicked.indexOf(id) === -1) {
+            if (this.state.score + 1 > this.state.topScore) {
+                this.setState({
+                    topScore: this.state.topScore + 1
+                });
+            }
             this.setState({
                 score: this.state.score + 1,
                 images_clicked: [...this.state.images_clicked, id],
-                images: this.state.images.sort(() => Math.random() - .5)
-            })
-
+                images: this.state.images.sort(() => Math.random() - .5),
+                message: "You haven't clicked that picture yet!  Great job!  Click another picture you haven't clicked yet!"
+            });
+            if (this.state.topScore + 1  === this.state.maxScore) {
+                this.setState({
+                message: "Congratulations!  You've clicked all 16 (well, 17 since Jacob and Evie are together) assassins without repeating!"
+            })}
+            
         } else {
-
             this.setState({
                 score: 0,
                 images_clicked: [],
-                images: this.state.images.sort(() => Math.random() - .5)
+                images: this.state.images.sort(() => Math.random() - .5),
+                message: "Too bad, you've already clicked that picture once.  Try again!"
             })
         }
+
+        
     }
 
     render() {
@@ -55,8 +69,10 @@ class App extends React.Component {
 
         return (
             <div>
+                <h1>Find Each Assassin!</h1>
                 <div>{this.state.message}</div>
-                < div > Score: {this.state.score}</div>
+                <div id="score"> Score: {this.state.score} Top Score: {this.state.topScore}</div>
+                
 
                 {this.state.images.map(img => (
                     <Image
