@@ -1,5 +1,23 @@
 img {
     width: 300px;
     height: 200px;
-    margin: 0 20px
+    margin: 10px 20px
+}
+
+body {
+    background-color: black;
+}
+
+h1 {
+    color: #fbff00de;
+    text-align: center
+}
+
+div {
+    font-size: 1.1em;
+    color: #f30b0b;
+    text-align: center;
+}
+#score {
+    margin: .5em;
 }
